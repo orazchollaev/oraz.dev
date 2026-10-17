@@ -1,11 +1,159 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const links = [
+	{
+		label: 'my game',
+		href: 'https://play.google.com/store/apps/details?id=com.orazchollaev.invictustournamentmaker',
+	},
+	{ label: 'instagram', href: 'https://instagram.com/0razch' },
+	{ label: 'telegram', href: 'https://t.me/orazch' },
+];
 ---
 
 <Layout>
-	<Welcome />
+	<main>
+		<header>
+			<h1>oraz<span>.dev</span></h1>
+			<p class="tag">frontend · games · stuff</p>
+		</header>
+
+		<section>
+			<p class="cmd">whoami</p>
+			<p>just another guy who likes to code</p>
+		</section>
+
+		<section>
+			<p class="cmd">explain orazchollaev</p>
+			<p>half-time game developer, full-time frontend developer, some-time normal person</p>
+		</section>
+
+		<section>
+			<p class="cmd">links</p>
+			<ul>
+				{
+					links.map((l) => (
+						<li>
+							{l.label} <span class="arrow">-&gt;</span>{' '}
+							<a href={l.href} target="_blank" rel="noopener noreferrer">
+								{l.href}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</section>
+
+		<footer>
+			<span>oraz.dev</span>
+			<span>{new Date().getFullYear()}</span>
+		</footer>
+	</main>
 </Layout>
+
+<style>
+	main {
+		max-width: 960px;
+		animation: fade 0.6s ease both;
+		margin: 0 auto;
+		padding: 0 24px;
+		height: 100vh;
+		height: 100dvh;
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		overflow: hidden;
+	}
+	header {
+		margin-bottom: clamp(1.5rem, 6vh, 4rem);
+		padding-bottom: 1.25rem;
+		border-bottom: 1px solid #eee;
+	}
+	h1 {
+		margin: 0;
+		font-size: 2.75rem;
+		letter-spacing: -0.04em;
+		line-height: 1.1;
+	}
+	h1 span {
+		color: #aaa;
+	}
+	.tag {
+		color: #888;
+		font-size: 0.875rem;
+	}
+	section {
+		margin-bottom: clamp(1rem, 4vh, 2.5rem);
+	}
+	footer {
+		display: flex;
+		justify-content: space-between;
+		margin-top: clamp(1.5rem, 6vh, 4rem);
+		padding-top: 1rem;
+		border-top: 1px solid #eee;
+		color: #aaa;
+		font-size: 0.8125rem;
+	}
+	p {
+		margin: 0.4rem 0;
+	}
+	.cmd::before {
+		content: '~ ';
+		color: #999;
+	}
+	.cmd {
+		font-weight: 600;
+	}
+	ul {
+		list-style: none;
+		margin: 0.4rem 0;
+		padding: 0;
+	}
+	li {
+		margin: 0.6rem 0;
+		word-break: break-word;
+	}
+	.arrow {
+		color: #999;
+	}
+	li a {
+		font-size: 0.9rem;
+	}
+	a {
+		color: inherit;
+		text-decoration: underline;
+		text-underline-offset: 3px;
+		text-decoration-color: #bbb;
+		transition: background 0.15s, color 0.15s;
+	}
+	a:hover {
+		background: #111;
+		color: #fff;
+		text-decoration-color: transparent;
+	}
+	h1::after {
+		content: '_';
+		color: #111;
+		animation: blink 1s steps(1) infinite;
+	}
+	.cmd {
+		color: #111;
+	}
+	@keyframes blink {
+		50% {
+			opacity: 0;
+		}
+	}
+	@keyframes fade {
+		from {
+			opacity: 0;
+			transform: translateY(8px);
+		}
+	}
+	@media (max-width: 640px) {
+		h1 {
+			font-size: 2.25rem;
+		}
+	}
+</style>
