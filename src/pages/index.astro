@@ -3,187 +3,429 @@ import Layout from '../layouts/Layout.astro';
 
 const links = [
 	{
-		label: 'my game',
+		label: 'Invictus Tournament Maker',
 		href: 'https://play.google.com/store/apps/details?id=com.orazchollaev.invictustournamentmaker',
-		host: 'play.google.com',
+		detail: 'Google Play',
 	},
-	{ label: 'instagram', href: 'https://instagram.com/0razch', host: 'instagram.com/0razch' },
-	{ label: 'telegram', href: 'https://t.me/orazch', host: 't.me/orazch' },
+	{
+		label: 'GitHub',
+		href: 'https://github.com/orazchollaev',
+		detail: '@orazchollaev',
+	},
+	{
+		label: 'Instagram',
+		href: 'https://instagram.com/0razch',
+		detail: '@0razch',
+	},
+	{
+		label: 'Telegram',
+		href: 'https://t.me/orazch',
+		detail: '@orazch',
+	},
 ];
 ---
 
 <Layout>
 	<main>
+
 		<header>
-			<div class="avatar" aria-hidden="true">o</div>
-			<div>
-				<h1>oraz-<span>chollaev</span></h1>
-				<p class="tag">frontend developer &middot; game developer</p>
+			<div class="heading">
+				<p class="eyebrow">
+					FRONTEND & GAMES
+				</p>
+
+				<h1>Oraz <span>Chollaev</span><span class="period">.</span></h1>
+			</div>
+
+			<div class="side-note" aria-label="A little about me">
+				<span class="note-line" aria-hidden="true"></span>
+				<p>
+					Building things<br />
+					that work well.
+				</p>
 			</div>
 		</header>
 
-		<section class="about">
+		<section class="about" aria-label="About me">
 			<p>
-				Half-time game developer, full-time frontend developer, some-time normal person — I
-				like building small things that work well.
+				I'm a frontend developer who also makes games.
+				Most days, you'll find me somewhere between clean interfaces,
+				a new idea, and one more small improvement.
 			</p>
 		</section>
 
-		<section class="links" aria-label="Links">
-			<ul>
-				{
-					links.map((l) => (
-						<li>
-							<a href={l.href} target="_blank" rel="noopener noreferrer">
-								<span class="label">{l.label}</span>
-								<span class="host">{l.host}</span>
-								<span class="arrow" aria-hidden="true">
-									&rarr;
-								</span>
-							</a>
-						</li>
-					))
-				}
-			</ul>
+		<section class="work" aria-label="Selected links">
+			<div class="section-heading">
+				<h2>Elsewhere</h2>
+				<span class="section-count">04 LINKS</span>
+			</div>
+
+			<nav>
+				<ul>
+					{
+						links.map((link, index) => (
+							<li>
+								<a
+									href={link.href}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<span class="number">
+										{String(index + 1).padStart(2, '0')}
+									</span>
+
+									<span class="label">{link.label}</span>
+
+									<span class="detail">{link.detail}</span>
+
+									<span class="arrow" aria-hidden="true">↗</span>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
 		</section>
 
 		<footer>
-			<span>oraz-chollaev.tech</span>
-			<span>{new Date().getFullYear()}</span>
+			<a class="domain" href="/">oraz-chollaev.tech</a>
+
+			<div class="footer-note">
+				<span class="footer-mark" aria-hidden="true">✳</span>
+				<span>Made by Oraz</span>
+			</div>
+
+			<span class="year">{new Date().getFullYear()}</span>
 		</footer>
 	</main>
 </Layout>
 
 <style>
 	main {
-		max-width: 640px;
+		width: 100%;
+		max-width: 720px;
+		min-height: 100vh;
+		min-height: 100svh;
 		margin: 0 auto;
-		padding: clamp(24px, 6vh, 56px) 24px;
-		min-height: 100dvh;
-		box-sizing: border-box;
+		padding: 32px 32px 24px;
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
-		gap: clamp(1.75rem, 5vh, 2.75rem);
-		animation: fade 0.5s ease both;
+	}
+
+	.topline {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding-bottom: 84px;
+	}
+
+	.monogram {
+		color: var(--accent);
+		font-size: 1.15rem;
+		font-weight: 750;
+		letter-spacing: -0.08em;
+	}
+
+	.topline-note {
+		color: var(--muted);
+		font-size: 0.75rem;
+		letter-spacing: 0.015em;
 	}
 
 	header {
 		display: flex;
-		align-items: center;
-		gap: 1rem;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 24px;
 	}
 
-	.avatar {
-		flex: none;
-		width: 48px;
-		height: 48px;
-		border-radius: 14px;
+	.eyebrow {
+		display: flex;
+		align-items: center;
+		gap: 9px;
+		margin: 0 0 18px 3px;
+		color: var(--muted);
+		font-size: 0.68rem;
+		font-weight: 600;
+		letter-spacing: 0.13em;
+	}
+
+	.status-dot {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
 		background: var(--accent);
-		color: var(--accent-contrast);
-		display: grid;
-		place-items: center;
-		font-weight: 700;
-		font-size: 1.25rem;
 	}
 
 	h1 {
 		margin: 0;
-		font-size: 1.75rem;
-		letter-spacing: -0.02em;
-		line-height: 1.2;
+		font-size: clamp(2.7rem, 7.8vw, 4.15rem);
+		font-weight: 560;
+		letter-spacing: -0.075em;
+		line-height: 1.07;
 	}
 
-	h1 span {
+	h1 span:first-child {
+		color: #a2a39c;
+	}
+
+	.period {
+		color: var(--accent);
+	}
+
+	.side-note {
+		display: flex;
+		align-items: flex-start;
+		gap: 11px;
+		flex: 0 0 auto;
+		margin: 0 8px 7px 0;
+	}
+
+	.note-line {
+		width: 1px;
+		height: 34px;
+		background: var(--accent);
+	}
+
+	.side-note p {
+		margin: -4px 0 0;
+		font-size: 0.75rem;
+		line-height: 1.65;
 		color: var(--muted);
 	}
 
-	.tag {
-		margin: 0.2rem 0 0;
-		color: var(--muted);
-		font-size: 0.875rem;
+	.about {
+		max-width: 400px;
+		margin: 42px 0 0 11%;
 	}
 
 	.about p {
 		margin: 0;
-		color: var(--text);
-		font-size: 1rem;
-		line-height: 1.7;
+		font-size: 0.97rem;
+		line-height: 1.9;
+		color: #62635d;
 	}
 
-	.links ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
+	.work {
+		width: 92%;
+		margin: 68px 0 0 auto;
 	}
 
-	.links a {
+	.section-heading {
 		display: flex;
 		align-items: center;
-		gap: 0.6rem;
-		padding: 0.85rem 1rem;
-		border: 1px solid var(--border);
-		border-radius: 12px;
-		background: var(--surface);
-		text-decoration: none;
-		transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
+		justify-content: space-between;
+		margin-bottom: 12px;
 	}
 
-	.links a:hover,
-	.links a:focus-visible {
-		border-color: var(--accent);
-		transform: translateX(2px);
-	}
-
-	.links .label {
+	.section-heading h2 {
+		margin: 0;
+		font-size: 0.86rem;
 		font-weight: 600;
+		letter-spacing: -0.02em;
 	}
 
-	.links .host {
-		color: var(--faint);
-		font-size: 0.8125rem;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
+	.section-count {
+		color: var(--muted);
+		font-size: 0.65rem;
+		letter-spacing: 0.1em;
 	}
 
-	.links .arrow {
-		margin-left: auto;
-		color: var(--faint);
-		transition: transform 0.15s ease, color 0.15s ease;
+	nav ul {
+		padding: 0;
+		margin: 0;
+		list-style: none;
+		border-top: 1px solid var(--border);
 	}
 
-	.links a:hover .arrow,
-	.links a:focus-visible .arrow {
+	nav li {
+		border-bottom: 1px solid var(--border);
+	}
+
+	nav a {
+		display: grid;
+		grid-template-columns: 30px minmax(0, 1fr) auto 18px;
+		align-items: center;
+		gap: 12px;
+		min-height: 58px;
+		padding: 12px 5px;
+		text-decoration: none;
+		transition: padding 160ms ease;
+	}
+
+	.number {
+		color: #a0a198;
+		font-size: 0.7rem;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.label {
+		font-size: 0.9rem;
+		font-weight: 500;
+		letter-spacing: -0.015em;
+	}
+
+	.detail {
+		color: var(--muted);
+		font-size: 0.76rem;
+	}
+
+	.arrow {
+		color: #a0a198;
+		font-size: 0.95rem;
+		text-align: right;
+		transition:
+			transform 160ms ease,
+			color 160ms ease;
+	}
+
+	nav a:hover {
+		padding-right: 0;
+		padding-left: 10px;
+	}
+
+	nav a:hover .arrow {
 		color: var(--accent);
-		transform: translateX(2px);
+		transform: translate(2px, -2px);
+	}
+
+	nav a:hover .label {
+		color: var(--accent);
 	}
 
 	footer {
 		display: flex;
+		align-items: center;
 		justify-content: space-between;
-		padding-top: 1rem;
+		gap: 12px;
+		margin-top: auto;
+		padding-top: 22px;
 		border-top: 1px solid var(--border);
-		color: var(--faint);
-		font-size: 0.8125rem;
+		color: var(--muted);
+		font-size: 0.72rem;
 	}
 
-	@keyframes fade {
-		from {
-			opacity: 0;
-			transform: translateY(8px);
+	.domain {
+		text-decoration: none;
+	}
+
+	.domain:hover {
+		color: var(--accent);
+	}
+
+	.footer-note {
+		display: flex;
+		align-items: center;
+		gap: 7px;
+		margin-left: 20px;
+	}
+
+	.footer-mark {
+		color: var(--accent);
+		font-size: 0.9rem;
+	}
+
+	.year {
+		font-variant-numeric: tabular-nums;
+	}
+
+	@media (min-width: 900px) {
+		main {
+			padding-top: 38px;
+		}
+
+		.topline {
+			padding-bottom: 100px;
 		}
 	}
 
-	@media (max-width: 480px) {
+	@media (max-width: 540px) {
+		main {
+			padding: 26px 22px 20px;
+		}
+
+		.topline {
+			padding-bottom: 76px;
+		}
+
+		.topline-note {
+			font-size: 0.68rem;
+		}
+
+		header {
+			align-items: flex-start;
+			gap: 12px;
+		}
+
 		h1 {
-			font-size: 1.5rem;
+			font-size: clamp(2.45rem, 9vw, 3.3rem);
 		}
-		.links .host {
+
+		.eyebrow {
+			font-size: 0.61rem;
+			margin-bottom: 16px;
+		}
+
+		.side-note {
+			margin: 48px 0 0;
+			gap: 7px;
+		}
+
+		.side-note p {
+			font-size: 0.65rem;
+			white-space: nowrap;
+		}
+
+		.note-line {
+			height: 29px;
+		}
+
+		.about {
+			max-width: 360px;
+			margin: 34px 0 0 5%;
+		}
+
+		.about p {
+			font-size: 0.92rem;
+		}
+
+		.work {
+			width: 100%;
+			margin-top: 58px;
+		}
+
+		nav a {
+			grid-template-columns: 23px minmax(0, 1fr) auto 14px;
+			gap: 8px;
+		}
+
+		.label {
+			font-size: 0.83rem;
+		}
+
+		.detail {
+			font-size: 0.69rem;
+		}
+	}
+
+	@media (max-width: 380px) {
+		.side-note {
 			display: none;
+		}
+
+		.about {
+			margin-left: 0;
+		}
+
+		.detail {
+			display: none;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		nav a,
+		.arrow {
+			transition: none;
 		}
 	}
 </style>
