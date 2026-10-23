@@ -1,13 +1,59 @@
+---
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = 'Oraz Chollaev — frontend & game developer',
+	description = 'Oraz Chollaev — frontend developer and game developer. Portfolio, projects and links.',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="color-scheme" content="light dark" />
+		<meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)" />
+		<meta name="theme-color" content="#0b0b0c" media="(prefers-color-scheme: dark)" />
+
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="canonical" href={canonicalURL} />
 		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content="Oraz Chollaev - frontend & game developer" />
+
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="author" content="Oraz Chollaev" />
+		<meta name="robots" content="index, follow" />
 		<meta name="google-site-verification" content="QBMjjEWYYPrsNaMGgI6rEI0LijjxMfZquhQTtvBsJOI" />
-		<title>oraz-chollaev</title>
+
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Oraz Chollaev" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:locale" content="en_US" />
+
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+
+		<script type="application/ld+json" set:html={JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'Person',
+			name: 'Oraz Chollaev',
+			url: 'https://oraz-chollaev.tech',
+			jobTitle: 'Frontend & Game Developer',
+			sameAs: [
+				'https://instagram.com/0razch',
+				'https://t.me/orazch',
+				'https://play.google.com/store/apps/details?id=com.orazchollaev.invictustournamentmaker',
+			],
+		})} />
 	</head>
 	<body>
 		<slot />
@@ -15,18 +61,65 @@
 </html>
 
 <style is:global>
+	:root {
+		--bg: #fafaf9;
+		--surface: #ffffff;
+		--text: #17171a;
+		--muted: #6b6b70;
+		--faint: #9a9aa0;
+		--border: #e8e8ea;
+		--accent: #4f46e5;
+		--accent-contrast: #ffffff;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--bg: #0b0b0c;
+			--surface: #141416;
+			--text: #f2f2f3;
+			--muted: #a3a3a9;
+			--faint: #6f6f76;
+			--border: #232327;
+			--accent: #818cf8;
+			--accent-contrast: #0b0b0c;
+		}
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+
 	html,
 	body {
 		margin: 0;
-		background: #fff;
-		color: #111;
-		font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
-		font-size: 16px;
-		line-height: 1.6;
-		overflow: hidden;
+		min-height: 100%;
 	}
+
+	body {
+		background: var(--bg);
+		color: var(--text);
+		font-family: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+		font-size: 16px;
+		line-height: 1.65;
+		-webkit-font-smoothing: antialiased;
+		text-rendering: optimizeLegibility;
+	}
+
 	::selection {
-		background: #111;
-		color: #fff;
+		background: var(--accent);
+		color: var(--accent-contrast);
+	}
+
+	a {
+		color: inherit;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		*,
+		*::before,
+		*::after {
+			animation-duration: 0.01ms !important;
+			transition-duration: 0.01ms !important;
+		}
 	}
 </style>

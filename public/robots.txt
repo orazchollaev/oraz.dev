@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://oraz-chollaev.tech/sitemap-index.xml

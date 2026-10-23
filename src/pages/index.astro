@@ -5,38 +5,41 @@ const links = [
 	{
 		label: 'my game',
 		href: 'https://play.google.com/store/apps/details?id=com.orazchollaev.invictustournamentmaker',
+		host: 'play.google.com',
 	},
-	{ label: 'instagram', href: 'https://instagram.com/0razch' },
-	{ label: 'telegram', href: 'https://t.me/orazch' },
+	{ label: 'instagram', href: 'https://instagram.com/0razch', host: 'instagram.com/0razch' },
+	{ label: 'telegram', href: 'https://t.me/orazch', host: 't.me/orazch' },
 ];
 ---
 
 <Layout>
 	<main>
 		<header>
-			<h1>oraz-<span>chollaev</span></h1>
-			<p class="tag">frontend · games · stuff</p>
+			<div class="avatar" aria-hidden="true">o</div>
+			<div>
+				<h1>oraz-<span>chollaev</span></h1>
+				<p class="tag">frontend developer &middot; game developer</p>
+			</div>
 		</header>
 
-		<section>
-			<p class="cmd">whoami</p>
-			<p>just another guy who likes to code</p>
+		<section class="about">
+			<p>
+				Half-time game developer, full-time frontend developer, some-time normal person — I
+				like building small things that work well.
+			</p>
 		</section>
 
-		<section>
-			<p class="cmd">explain orazchollaev</p>
-			<p>half-time game developer, full-time frontend developer, some-time normal person</p>
-		</section>
-
-		<section>
-			<p class="cmd">links</p>
+		<section class="links" aria-label="Links">
 			<ul>
 				{
 					links.map((l) => (
 						<li>
-							{l.label} <span class="arrow">-&gt;</span>{' '}
 							<a href={l.href} target="_blank" rel="noopener noreferrer">
-								{l.href}
+								<span class="label">{l.label}</span>
+								<span class="host">{l.host}</span>
+								<span class="arrow" aria-hidden="true">
+									&rarr;
+								</span>
 							</a>
 						</li>
 					))
@@ -53,107 +56,134 @@ const links = [
 
 <style>
 	main {
-		max-width: 960px;
-		animation: fade 0.6s ease both;
+		max-width: 640px;
 		margin: 0 auto;
-		padding: 0 24px;
-		height: 100vh;
-		height: 100dvh;
+		padding: clamp(24px, 6vh, 56px) 24px;
+		min-height: 100dvh;
 		box-sizing: border-box;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
-		overflow: hidden;
+		gap: clamp(1.75rem, 5vh, 2.75rem);
+		animation: fade 0.5s ease both;
 	}
+
 	header {
-		margin-bottom: clamp(1.5rem, 6vh, 4rem);
-		padding-bottom: 1.25rem;
-		border-bottom: 1px solid #eee;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
 	}
+
+	.avatar {
+		flex: none;
+		width: 48px;
+		height: 48px;
+		border-radius: 14px;
+		background: var(--accent);
+		color: var(--accent-contrast);
+		display: grid;
+		place-items: center;
+		font-weight: 700;
+		font-size: 1.25rem;
+	}
+
 	h1 {
 		margin: 0;
-		font-size: 2.75rem;
-		letter-spacing: -0.04em;
-		line-height: 1.1;
+		font-size: 1.75rem;
+		letter-spacing: -0.02em;
+		line-height: 1.2;
 	}
+
 	h1 span {
-		color: #aaa;
+		color: var(--muted);
 	}
+
 	.tag {
-		color: #888;
+		margin: 0.2rem 0 0;
+		color: var(--muted);
 		font-size: 0.875rem;
 	}
-	section {
-		margin-bottom: clamp(1rem, 4vh, 2.5rem);
+
+	.about p {
+		margin: 0;
+		color: var(--text);
+		font-size: 1rem;
+		line-height: 1.7;
 	}
+
+	.links ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.links a {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		padding: 0.85rem 1rem;
+		border: 1px solid var(--border);
+		border-radius: 12px;
+		background: var(--surface);
+		text-decoration: none;
+		transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
+	}
+
+	.links a:hover,
+	.links a:focus-visible {
+		border-color: var(--accent);
+		transform: translateX(2px);
+	}
+
+	.links .label {
+		font-weight: 600;
+	}
+
+	.links .host {
+		color: var(--faint);
+		font-size: 0.8125rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.links .arrow {
+		margin-left: auto;
+		color: var(--faint);
+		transition: transform 0.15s ease, color 0.15s ease;
+	}
+
+	.links a:hover .arrow,
+	.links a:focus-visible .arrow {
+		color: var(--accent);
+		transform: translateX(2px);
+	}
+
 	footer {
 		display: flex;
 		justify-content: space-between;
-		margin-top: clamp(1.5rem, 6vh, 4rem);
 		padding-top: 1rem;
-		border-top: 1px solid #eee;
-		color: #aaa;
+		border-top: 1px solid var(--border);
+		color: var(--faint);
 		font-size: 0.8125rem;
 	}
-	p {
-		margin: 0.4rem 0;
-	}
-	.cmd::before {
-		content: '~ ';
-		color: #999;
-	}
-	.cmd {
-		font-weight: 600;
-	}
-	ul {
-		list-style: none;
-		margin: 0.4rem 0;
-		padding: 0;
-	}
-	li {
-		margin: 0.6rem 0;
-		word-break: break-word;
-	}
-	.arrow {
-		color: #999;
-	}
-	li a {
-		font-size: 0.9rem;
-	}
-	a {
-		color: inherit;
-		text-decoration: underline;
-		text-underline-offset: 3px;
-		text-decoration-color: #bbb;
-		transition: background 0.15s, color 0.15s;
-	}
-	a:hover {
-		background: #111;
-		color: #fff;
-		text-decoration-color: transparent;
-	}
-	h1::after {
-		content: '_';
-		color: #111;
-		animation: blink 1s steps(1) infinite;
-	}
-	.cmd {
-		color: #111;
-	}
-	@keyframes blink {
-		50% {
-			opacity: 0;
-		}
-	}
+
 	@keyframes fade {
 		from {
 			opacity: 0;
 			transform: translateY(8px);
 		}
 	}
-	@media (max-width: 640px) {
+
+	@media (max-width: 480px) {
 		h1 {
-			font-size: 2.25rem;
+			font-size: 1.5rem;
+		}
+		.links .host {
+			display: none;
 		}
 	}
 </style>
