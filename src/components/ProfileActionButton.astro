@@ -1,0 +1,38 @@
+---
+// components imports
+import {Icon} from "astro-icon/components";
+import {buttonVariants} from "./ui/button";
+
+// library imports
+import {cn} from "../lib/utils";
+
+// config import
+import { ME } from '@/config.ts';
+
+const {email, telegram} = ME.contactInfo;
+
+const iconButton = cn(
+    buttonVariants({ size: 'icon' }),
+    "[&_svg]:size-7 h-14 w-14 flex-none text-n700 dark:text-n200 bg-white dark:bg-black hover:bg-grey-500 dark:hover:bg-n700 transition-all"
+);
+---
+<div class="profile-action-buttons w-full flex gap-2">
+    <a
+            href="/projects"
+            class={cn(buttonVariants({ size: 'lg' }), "[&_svg]:size-6 px-4 md:px-8 h-14 flex-1 text-n700 bg-primary-light dark:bg-primary-dark hover:bg-primary-hover-light dark:hover:bg-primary-hover-dark")}>
+        View Projects
+        <Icon name="ri:arrow-right-line"/>
+    </a>
+
+    <a href={`mailto:${email}`} aria-label="send me an email" class={iconButton}>
+        <Icon name="ri:mail-fill"/>
+    </a>
+    <a
+            href={telegram}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="message me on Telegram"
+            class={iconButton}>
+        <Icon name="ri:telegram-fill"/>
+    </a>
+</div>

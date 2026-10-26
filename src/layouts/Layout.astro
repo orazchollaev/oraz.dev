@@ -1,116 +1,74 @@
 ---
+import {ClientRouter} from 'astro:transitions';
+import {cn} from "../lib/utils";
+import '@/styles/globals.css'
+
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+
+import {SITE} from '@/config';
+
 interface Props {
-	title?: string;
-	description?: string;
+    title?: string;
+    scrollSmooth: boolean;
+    description?: string;
+    tags?: string[];
+    author?: string;
+    imageOg?: string;
+    canonicalURL?: string;
 }
 
 const {
-	title = 'Oraz Chollaev — Frontend & Game Developer',
-	description = 'Frontend developer and game developer. Projects, experiments and links.',
+    title = SITE.title,
+    description = SITE.description,
+    tags = SITE.tags,
+    author = SITE.author,
+    scrollSmooth,
+    canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
+    imageOg = SITE.ogImage,
 } = Astro.props;
-
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="color-scheme" content="light" />
-		<meta name="theme-color" content="#ffffff" />
+<html lang={SITE.lang ?? "en"} class={cn({"scroll-smooth": scrollSmooth})}>
+<head>
+    <meta name="msapplication-TileColor" content="#000000"/>
+    <meta name="viewport" content="width=device-width"/>
+    <meta charset="UTF-8"/>
+    <meta name="generator" content={Astro.generator}/>
 
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="canonical" href={canonicalURL} />
-		<meta name="generator" content={Astro.generator} />
+    <meta name="title" content={title}/>
+    <meta name="description" content={description}/>
+    <meta name="keywords" content={tags.join(', ')}/>
+    <meta name="author" content={author}/>
+    <meta name="google-site-verification" content={SITE.googleSiteVerification}/>
+    <link rel="sitemap" href="/sitemap-index.xml"/>
+    <link rel="icon" href={SITE.favicon} sizes="any"/>
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"/>
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"/>
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+    <link rel="canonical" href={canonicalURL}/>
 
-		<title>{title}</title>
-		<meta name="description" content={description} />
-		<meta name="author" content="Oraz Chollaev" />
-		<meta name="robots" content="index, follow" />
-		<meta
-			name="google-site-verification"
-			content="QBMjjEWYYPrsNaMGgI6rEI0LijjxMfZquhQTtvBsJOI"
-		/>
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content={title}/>
+    <meta property="og:description" content={description}/>
+    <meta property="og:url" content={canonicalURL}/>
+    <meta property="og:image" content={imageOg}/>
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image"/>
+    <meta property="twitter:url" content={canonicalURL}/>
+    <meta property="twitter:title" content={title}/>
+    <meta property="twitter:description" content={description}/>
+    <meta property="twitter:image" content={imageOg}/>
 
-		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content="Oraz Chollaev" />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:url" content={canonicalURL} />
-		<meta property="og:locale" content="en_US" />
-
-		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:title" content={title} />
-		<meta name="twitter:description" content={description} />
-
-		<script
-			type="application/ld+json"
-			set:html={JSON.stringify({
-				'@context': 'https://schema.org',
-				'@type': 'Person',
-				name: 'Oraz Chollaev',
-				url: 'https://oraz-chollaev.tech',
-				jobTitle: 'Frontend & Game Developer',
-				sameAs: [
-					'https://instagram.com/0razch',
-					'https://t.me/orazch',
-					'https://play.google.com/store/apps/details?id=com.orazchollaev.invictustournamentmaker',
-				],
-			})}
-		/>
-	</head>
-
-	<body>
-		<slot />
-	</body>
+    <title>{title}</title>
+    <ClientRouter/>
+</head>
+<body class="bg-light-theme dark:bg-dark-theme antialiased text-n700 dark:text-light-theme w-full h-screen flex flex-col">
+<Navbar/>
+<main class="container py-24 flex gap-8 flex-col" role="main"  id="top">
+    <slot/>
+</main>
+<Footer/>
+</body>
 </html>
-
-<style is:global>
-	:root {
-		color-scheme: light;
-
-		--bg: #ffffff;
-		--text: #242520;
-		--muted: #85867e;
-		--border: #eaeae5;
-		--accent: #0b7264;
-		--soft: #f5f7f5;
-	}
-
-	* {
-		box-sizing: border-box;
-	}
-
-	html {
-		min-height: 100%;
-		scroll-behavior: smooth;
-	}
-
-	body {
-		margin: 0;
-		min-height: 100vh;
-		background: var(--bg);
-		color: var(--text);
-		font-family:
-			-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-		font-size: 15px;
-		line-height: 1.7;
-		-webkit-font-smoothing: antialiased;
-		text-rendering: optimizeLegibility;
-	}
-
-	::selection {
-		background: #dcece7;
-		color: #174c43;
-	}
-
-	a {
-		color: inherit;
-	}
-
-	:focus-visible {
-		outline: 2px solid var(--accent);
-		outline-offset: 4px;
-	}
-</style>

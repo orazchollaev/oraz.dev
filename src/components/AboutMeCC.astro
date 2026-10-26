@@ -1,0 +1,8 @@
+---
+// config import
+import {ME} from '@/config';
+---
+
+<div class="relative flex flex-col gap-4 text-n700 dark:text-n200 w-full mt-10 px-4">
+    {ME.aboutMe.map((paragraph) => <p>{paragraph}</p>)}
+</div>
